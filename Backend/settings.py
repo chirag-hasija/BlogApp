@@ -125,6 +125,7 @@ USE_TZ = True
 
 # filepath: /C:/Users/chira/OneDrive/Desktop/Web/HolidayDjango/Backend/Backend/settings.py
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
