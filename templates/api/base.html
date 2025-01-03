@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'api/main.css' %}">  <!--Here we can link the main.css file-->
+
+    
+    {% if title %}
+        <title>Django - {{title}}</title>
+    {% else %}
+        <title>Django - Else</title>
+    {% endif %}
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+          <div class="container">
+            <a class="navbar-brand mr-4" href="{% url 'api-home' %}" style="color: white;">Django Blog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="{% url 'api-home'%}">Home</a>
+                <a class="nav-item nav-link" href="{% url 'api-about'%}">About</a>
+              </div>
+              <!-- Navbar Right Side -->
+              <div class="navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                  <a class="nav-item nav-link" href="{% url 'api-post-create' %}">New Post</a>
+                  <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                  <form method="post" action="{% url 'logout' %}" class="logout-form" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger btn-sm" style="border: none; background: none; padding: 0; color: #dc3545;">
+                        <i class="glyphicon glyphicon-log-out"></i> Logout
+                    </button>
+                  </form>
+
+                {% else %} 
+                  <a class="nav-item nav-link" href="{% url 'login'%}">Login</a>
+                  <a class="nav-item nav-link" href="{% url 'register'%}">Register</a>
+                {% endif %}
+            </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+    <main role="main" class="container">
+        <div class="row">
+          <div class="col-md-8">
+            {% if messages%}
+            {% for message in messages%}
+            <div class="alert alert-{{message.tags}}">
+              {{message}}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
+          </div>
+          <div class="col-md-4">
+            <div class="content-section">
+              <h3>Our Sidebar</h3>
+              <div class='text-muted'>You can put any information here you'd like.>
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item-light">Latest Posts</li>
+                  <li class="list-group-item list-group-item-light">Announcements</li>
+                  <li class="list-group-item list-group-item-light">Calendars</li>
+                  <li class="list-group-item list-group-item-light">etc</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+</body>
+</html>
