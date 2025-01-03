@@ -126,6 +126,7 @@ USE_TZ = True
 # filepath: /C:/Users/chira/OneDrive/Desktop/Web/HolidayDjango/Backend/Backend/settings.py
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
